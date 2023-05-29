@@ -109,16 +109,23 @@ li.active{
 
 let searchbar = document.querySelector("#searchbar");
 searchbar.addEventListener("input",search_animal);
-</script><base target="_blank">
+</script>
+	<script>
+		const target_blank = document.querySelectorAll('.target_blank a');
+for (const el of target_blank) {
+  el.target = "_blank";
+}
+	</script>
     </head>
 
     <body><center><div style="position:absolute; background-color:black; width:100%; height:100px;"><a href="https://classroom.google.com/" target="_blank" class="back-btn">PANIC BUTTON</a><br><p style="color:lightblue;">Click panic button if someone is nearby, so you do not get in trouble.</p></div><br><br><br><br><br>
     <h6>This took like 6 hours please enjoy<br>Requested by Ethan Kimball</h6>
     <a href="index.html" class="back-btn">Back</a><br><br></center>
-<!-- input tag -->
+<!-- input tag --><base target="_blank">
     <input id="searchbar" onkeyup="search_animal()" type="text"
         name="search" placeholder="Search games..">
       <br><br>
+	    <div alt="container" class="target_blank">
     <!-- ordered list --><div class="itemconfiguration" width="500px" height="400px">
     <ol id='list'><div class="animals"><div class="column">
       
@@ -545,7 +552,7 @@ searchbar.addEventListener("input",search_animal);
         </div>
 
         </div>
-    </ol></div></center>
+		    </ol></div></div></center>
         </body>
 
         </html>

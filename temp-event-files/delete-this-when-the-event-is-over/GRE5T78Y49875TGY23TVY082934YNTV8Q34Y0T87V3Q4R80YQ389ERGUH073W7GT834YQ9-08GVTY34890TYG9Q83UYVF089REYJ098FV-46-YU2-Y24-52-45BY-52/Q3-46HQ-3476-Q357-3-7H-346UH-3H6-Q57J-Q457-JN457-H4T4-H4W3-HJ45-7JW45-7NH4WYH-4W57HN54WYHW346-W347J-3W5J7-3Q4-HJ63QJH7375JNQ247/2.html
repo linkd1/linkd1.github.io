@@ -1,0 +1,44 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Hidden Golden Egg</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            position: relative;
+            height: 100vh;
+        }
+
+        #goldenEgg {
+            position: absolute;
+            width: 0.5px;
+            height: 0.5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="./345Q6N3456HQ3546HQ46HQ346H-3Q46H3Q4-H6Q346H436H4H-H46Q-H46H3Q-46-4H-6-Q346HQH34-6H34Q-H634-6-H346HQ34-H6-Q346H-Q3-46H-3-46H--Q3/Q2ZW3XE4CR5V6TG7YHUJ8IK9Q2ZW3X4ECDR5FVT6GB3245234524352342345245324523452345234YH7UNJMIKAZWSXEDCRFVTGBYHNUJMIKE4D5RFTGYHUJ.html">
+        <img id="goldenEgg" src="https://media.istockphoto.com/id/186866452/photo/golden-egg-on-white-background.jpg?s=612x612&w=0&k=20&c=9IvxIuv8YqG_rNBorZCRqZStr8QlotrEQpurDWaJ7DY=" alt="Golden Egg">
+    </a>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            const eggElement = document.getElementById("goldenEgg");
+
+            // Generate random coordinates for egg placement
+            const minX = 0;
+            const minY = 0;
+            const maxX = document.documentElement.clientWidth - eggElement.offsetWidth;
+            const maxY = document.documentElement.clientHeight - eggElement.offsetHeight;
+            const randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+            const randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+            // Position the egg at random coordinates
+            eggElement.style.top = randomY + "px";
+            eggElement.style.left = randomX + "px";
+        });
+    </script>
+</body>
+</html>

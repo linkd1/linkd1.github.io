@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #2f2f2f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      font-family: "Syne", sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    #paypal-button-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #3f3f3f;
+      background-color: black;
+      z-index: 9999; /* Ensure the button is on top of other elements */
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!-- Replace "test" with your own sandbox Business account app client ID -->
+  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+  <!-- Set up a container element for the button -->
+  <div id="paypal-button-container"></div>
+  <script>
+    paypal.Buttons({
+      // Order is created on the server and the order id is returned
+      createOrder() {
+        return fetch("/my-server/create-paypal-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // use the "body" param to optionally pass additional order information
+          // like product skus and quantities
+          body: JSON.stringify({
+            cart: [
+              {
+                sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                quantity: "YOUR_PRODUCT_QUANTITY",
+              },
+            ],
+          }),
+        })
+          .then((response) => response.json())
+          .then((order) => order.id);
+      },
+      // Finalize the transaction on the server after payer approval
+      onApprove(data) {
+        return fetch("/my-server/capture-paypal-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderID: data.orderID,
+          }),
+        })
+          .then((response) => response.json())
+          .then((orderData) => {
+            // Successful capture! For dev/demo purposes:
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            const transaction = orderData.purchase_units[0].payments.captures[0];
+            alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+          });
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>

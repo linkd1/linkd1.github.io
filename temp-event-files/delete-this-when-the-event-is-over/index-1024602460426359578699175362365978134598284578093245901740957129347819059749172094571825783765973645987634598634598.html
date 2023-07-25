@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Test</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .test-container {
+            width: 50%;
+            height: 50%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        input[type="number"] {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>Math Test</h2>
+        <form id="mathForm">
+            <label for="answer">What is 5135 x 8643 / 1319.591027?</label><br>
+            <input type="number" id="answer" required><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("mathForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const answerInput = document.getElementById("answer");
+            const userAnswer = parseFloat(answerInput.value);
+
+            // Check if the answer is correct
+            if (Math.abs(userAnswer - 33633) < 0.0001) {
+                window.location.href = "https://linkd.w3spaces.com/temp-event-files/delete-this-when-the-event-is-over/GRE5T78Y49875TGY23TVY082934YNTV8Q34Y0T87V3Q4R80YQ389ERGUH073W7GT834YQ9-08GVTY34890TYG9Q83UYVF089REYJ098FV-46-YU2-Y24-52-45BY-52/1.html";
+            } else {
+                alert("Incorrect answer. Please try again.");
+            }
+
+            // Reset the input field
+            answerInput.value = "";
+        });
+    </script>
+</body>
+</html>

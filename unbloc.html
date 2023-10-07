@@ -1,6 +1,15 @@
   <!DOCTYPE html> <!-- REMOVE CBGAMESDEV -->
  <html>
 <head>
+  <link rel="shortcut icon" type="image/x-icon" href="./misc-files/LINKD.png" />
+    <meta content="LINK-D" property="og:title" />
+    <meta content="The go-to website for fun at school." property="og:description" />
+    <meta content="https://linkd.w3spaces.com" property="og:url" />
+    <meta content="./misc-files/LINKD-large.png" property="og:image" />
+    <meta content="#43B581" data-react-helmet="true" name="theme-color" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LINK-D Games</title>
 <style>
     body {
 		background-image: url(https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80); /* The image used for background*/
@@ -99,6 +108,16 @@
 li.active{
   display:list-item;
 }
+#recently-played {
+height: 200px;
+width: 175px;
+overflow: auto;
+float: right;
+position: relative;
+margin-right: 360px;
+border: 3px solid black;
+background-color: #16171d;
+}
         </style><script>
     function search_animal() {
   let input = document.getElementById('searchbar').value
@@ -120,18 +139,59 @@ for (const el of target_blank) {
 }
 	</script>
   <script>
-    // Wait for the document to fully load
-    document.addEventListener("DOMContentLoaded", function() {
-      // Get all <a> elements
-      var links = document.getElementsByTagName("a");
-      
-      // Loop through each <a> element
-      for (var i = 0; i < links.length; i++) {
-        // Set the target attribute to "_blank"
-        links[i].setAttribute("target", "_blank");
-      }
-    });
-  </script>
+    // Function to update the recently opened games list
+    function updateRecentGames(gameId, gameName) {
+      const recentGames = JSON.parse(localStorage.getItem('recentGames')) || {};
+
+      // Remove duplicates if the game is already in the list
+      delete recentGames[gameId];
+
+      // Add the new game to the object with current timestamp
+      recentGames[gameId] = Date.now();
+
+      // Limit the number of games to display
+      const maxGames = 5;
+      const sortedGames = Object.entries(recentGames).sort((a, b) => b[1] - a[1]);
+      const slicedGames = sortedGames.slice(0, maxGames);
+
+      // Create a new object with the limited games
+      const limitedGames = slicedGames.reduce((obj, [id, timestamp]) => {
+        obj[id] = timestamp;
+        return obj;
+      }, {});
+
+      // Update the recentGames object in localStorage
+      localStorage.setItem('Sure, here is the continuation of the previous response:')
+ localStorage.setItem('recentGames', JSON.stringify(limitedGames));
+
+  // Update the recently opened games list in the HTML
+  const recentGamesList = document.getElementById('recentGamesList');
+  recentGamesList.innerHTML = '';
+
+  for (const [id, timestamp] of Object.entries(limitedGames)) {
+    const gameName = document.querySelector(`[data-game-id="${id}"]`).textContent;
+    const listItem = document.createElement('li');
+    listItem.textContent = `${gameName} (Opened: ${new Date(timestamp).toLocaleString()})`;
+    recentGamesList.appendChild(listItem);
+  }
+}
+
+// Add event listeners to the game links
+const gameLinks = document.querySelectorAll('.animals a');
+gameLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
+    const gameId = this.getAttribute('data-game-id');
+    const gameName = this.textContent;
+    updateRecentGames(gameId, gameName);
+  });
+});
+
+// Load the recently opened games on page load
+window.addEventListener('load', function() {
+  const recentGames = JSON.parse(localStorage.getItem('recentGames')) || {};
+  updateRecentGames(recentGames);
+});
+</script> 
     </head>
 
 <!-- BB LL OO CC KK EE DD       WW AA TT CC HH LL II SS TT  -----> 
@@ -144,20 +204,36 @@ ZOMBOTRON , JETPACK JOYRIDE ,
     <form class="back-btn" style="background-color: black;" action="https://linkd.w3spaces.com/index.html">
     <input style="background-color: #4CAF50; color: white; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer;" type="submit" value="<-- Back" />
 </form><br><br>
-    <h3>All possible pizza edition games have been added </h3>
 	    <h3>Newest games are at the top of everything!</h3>
-      <h2>There are currently 599 games!</h2>
-      <h3>Last game amount update: +37 games at 11:30 PM (EST), June 9th 2023</h3>
+      <h2>There are currently 575 games!</h2>
+      <h3>Last game update: Unblocked some games, 8:47 PM 9/19/2023 (EST)</h3>
+
+      <br><h2>Providers:</h2>
+      
+        <a href="tf.html" target="_blank">Tiny Fishing</a><br>
+        
+        <br><br><br>
+      
 	    </center>
 <!-- input tag -->
     <input id="searchbar" onkeyup="search_animal()" type="text"
         name="search" placeholder="Search games..">
       <br><br>
 	    <div alt="container" class="target_blank">
+        <div id="recently-played"><center>
+    <h2>Recently Played Games</h2></center>
+    <ul id="recentFilesList">
+       
+    </ul>
+</div>
+
     <!-- ordered list --><div class="itemconfiguration">
     <ol id='list'><div class="animals">
 
-<li><a href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fstick-rpg-complete.xml">Stick RPG Complete (2?)</a></li>
+<li><a target="_blank" href="./games/BRR-SKIBIDI-DOP-DOP-DOP-YES-YES.html">Skibidi Toilet</a></li>
+<li><a target="_blank" href="./games/drivemad.html">Drive Mad</a></li>
+<li><a target="_blank" href="./games/monkeymart.html">Monkey Mart</a></li>
+<li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fstick-rpg-complete.xml">Stick RPG Complete (2?)</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdirt-bike-4.xml">Dirt Bike 4</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdino-run-2.xml">Dino Run 2</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdino-run.xml">Dino Run</a></li>
@@ -180,6 +256,7 @@ ZOMBOTRON , JETPACK JOYRIDE ,
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdead_zed.xml">Dead Zed</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdead-samurai-2.xml">Dead Samurai 2</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdead-samurai.xml">Dead Samurai</a></li>
+ <li><a target="_blank" href="https://unblocked-games.s3.amazonaws.com/games/2022/unity2/urban-sniper/unblocked.html">Urban Sniper</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fdead_drunk.xml">Dead Drunk</a></li>
  <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fday-of-meat.xml">Day of Meat</a></li>
  <li><a target="_blank" href="https://script.google.com/macros/s/AKfycbzMOhPBL2Cs0KmlVxK03lD9Uvl93S6vJvrCy7-U_bEnvYSlJ5XLVp7t7i8uzXyQTkZo/exec">Dark Adventure</a></li>
@@ -304,7 +381,6 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://580295361-374820547182639046.preview.editmysite.com/uploads/b/139890129-444895167139728546/files/tb.xml">Tower Builder</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://472361-648417.preview.editmysite.com/uploads/b/139890129-448095031924850252/files/st-climb.xml">Stickman Climb</a></li>
 <li><a target="_blank" href="https://mj89sp3sau2k7lj1eg3k40hkeppguj6j-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=http://www.gstatic.com/sites-gadgets/iframe/iframe.xml&container=enterprise&view=default&lang=ru&country=ALL&sanitize=0&v=c8088f253fe9d6d6&libs=core&mid=3921&parent=https://google.com/static_files#up_scroll=no&up_iframeURL=https://debbiewatermanphd.com/uploads/3/4/3/4/139890129/custom_themes/943031582154601096/files/1index.html">Blockpost</a></li>
-<li><a target="_blank" href="https://wellsousaaa.github.io/Five-Nights-at-Freddys-Web/">FNAF Web</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if8dv@2247e549da02c36db71b10c56f4c1e713ae5b7a5/zjt64geg/idle-breakout.xml">Idle Breakout</a></li>
 <li><a target="_blank" href="https://vex7.ubg235.com/">Vex 7</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://882300221708216345-489941489768578779.preview.editmysite.com/uploads/b/139890129-360170156295738788/files/vx6.xml">Vex 6</a></li>
@@ -312,7 +388,7 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if12dv@dba2984356cca2ac1bfff5bdd272b9488c6f687c/fr3hg6w/vex-4.xml">Vex 4</a></li>
 <li><a target="_blank" href="https://gavan228.github.io/gaming/vex3/index.html">Vex 3</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fvex.xml">Vex 1</a></li>
-<li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if11dv@450edc9ff6fe572e5c4d4be93313a436d7526181/5sd4g6/temple-run.xml">Temple Run: Shitty Edition 🔥😎</a></li>
+<li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if11dv@450edc9ff6fe572e5c4d4be93313a436d7526181/5sd4g6/temple-run.xml">Temple Run: Shitty Edition</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@b1961d79577fbdfcf4033025c72e34d4ffcf001e/ps94jf2/snowball-io.xml">Snowball.io</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@e0fc7498c465343e51c5ee89f7c634f40855f73e/fg67s3f/Sling-Drift.xml">Sling Drift</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@4097a0079bddeaf3602b956f555f08a14fea6d93/6rghd4/penguin-io.xml">Penguin.io</a></li>
@@ -454,6 +530,7 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcactus-mccoy-2.xml">Cactus McCoy 2</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcall-of-duty.xml">Crappy Call of Duty</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcan-your-pet.xml">Can Your Pet?</a></li>
+<li><a target="_blank" href="https://unblocked-games.s3.amazonaws.com/games/2021/3/police-chase-drifter/unblocked.html">Police Chase Drifter</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://830581635-628405001538672842.preview.editmysite.com/uploads/b/139890129-709153476852373754/files/cc.xml">Candy Crush</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcannon-basketball.xml">Cannon Basketball</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://927530174-639580365944163947.preview.editmysite.com/uploads/b/139890129-517117582790355253/files/cb2.xml">Cannon Basketball 2</a></li>
@@ -464,7 +541,6 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcastaway.xml">Castaway</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcastaway2.xml">Castaway 2</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2FCastle_Corp.xml">Castle Corp</a></li>
-<li><a target="_blank" href="https://gg-opensocial.googleusercontent.com/gadgets/ifr?url=https://361820596-851580422716946014.preview.editmysite.com/uploads/b/139890129-473108247243760926/files/tf.xml">Tiny Fishing</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fberzerk-ball-2.xml">Berzerk Ball 2</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://835140793-361837406927483175.preview.editmysite.com/uploads/b/139890129-331646845806169131/files/bntower.xml">Big Neon Tower vs Tiny Square</a></li>
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://285001835-183755392105928452.preview.editmysite.com/uploads/b/139890129-828743568385243875/files/bsb.xml">Big Shot Boxing</a></li>
@@ -581,87 +657,56 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if1dv@e583f8c0c58d62fcb092e0da5452635bc97056fd/4h8sk3g/among-us.xml">Among Us</a></li>
 <li><a target="_blank" href="https://studio.code.org/projects/gamelab/uoyZRdqnkDG2V4VKdIr_pNNykIpE9VOIIEy7gaiyrAU/">Firefighter!</a></li>
       <li><a target="_blank" href="https://studio.code.org/projects/gamelab/eFmUNuuDW2CnfwsaRG79nuKHiB6_oyIy9AywZJkakpg/">Fire Dash</a></li>
-      <li><a target="_blank" href="https://gg-opensocial.googleusercontent.com/gadgets/ifr?url=https://295734015-153005836283618337.preview.editmysite.com/uploads/b/139890129-329349294395718866/files/dm.xml">Drive Mad</a></li>
       <li><a target="_blank" href="https://gertdoro.github.io/3hg7dj3bnc82/index.html">Subway Surfers</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/1v1lol.html">1v1.lol</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/slope/index.html">Slope</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/cookie/index.html">Cookie Clicker</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/mario/index.html">Mario</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/sm64/index.html">Super Mario 64</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bstars/index.html">Basketball Stars</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/run3/index.html">Run 3</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/FNAF/2/index.html">FNAF 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/motox3m/index.html">Moto X3M</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/wolfen/index.html">Wolfenstein 3D</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/minecrap/index.html">Minecraft Classic</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/retrobowl/index.html">Retro Bowl</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/FNAF/3/index.html">FNAF 3</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/motox3m2/index.html">Moto X3M 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/googbaseball.html">Google Baseball</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/alien.html">Alien Hominid</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/ageofwar.html">Age of War</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/appleshoot.html">Apple Shooter</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/assroid.html">Asteroids</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bigadventure.html">Abbobos Big Adventure</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bloxorz.html">Bloxorz</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bloodyrage.html">Bloody Rage</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bloons.html">Bloons TD</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bubble.html">Bubble Shooter</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/colorcombat.html">Color Combat</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/commando.html">Commando</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/cube.html">Cubefield</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/smilewar.html">Smile War</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/dadnme.html">Dad 'N Me</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/kong.html">Donkey Kong</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/ducklife.html">Duck Life</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/ducklife2.html">Duck Life 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/ducklife3.html">Duck Life 3</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/castle.html">Defend Your Castle</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/duckhunt.html">Duck Hunt</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/eman2.html">Electricman 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bank.html">Escaping the Prison</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/stealing.html">Stealing the Diamond</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/fancypants.html">The Fancy Pants Adventures</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/hobo.html">Hobo</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/hobo2.html">Hobo 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/ib.html">Interactive Buddy</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/learn2fly.html">Learn to Fly</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miamishark.html">Miami Shark</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/stickrpg.html">Stick RPG</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/only.html">This is the Only Level</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/Pacman.html">Pacman</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/papapizza.html">Papa's Pizzeria</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/pong.html">Pong</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/portal.html">Portal: The Flash Version</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/supermarioflash.html">Super Mario Flash</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/mariocombat.html">Mario Combat</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/meatboy.html">Meat Boy</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miniputt.html">Mini Putt</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/pedro.html">My Friend Pedro</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/gunblood.html">Gunblood</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/riddleschool.html">Riddle School</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/riddleschool2.html">Riddle School 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/rs3.html">Riddle School 3</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/run.html">Run</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/tetris.html">Tetris</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/quiz.html">The Impossible Quiz</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/hardestgame.html">The World's Hardest Game</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/hardestgame2.html">The World's Hardest Game 2</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/turtle.html">Toss the Turtle</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/sonic.html">Ultimate Flash Sonic</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/yeti.html">Yeti Sports: Pingu Throw</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/ctr/index.html">Cut the Rope</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/example/batman.html">Batman (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/contracool.html">Contra (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/doubled.html">Double Dragon (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/example/ducktales.html">Duck Tales (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/example/f13.html">Friday the Thirteenth (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/megamandos.html">Mega Man 2 (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/example/rivercity.html">River City Ransom (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/mariones.html">Super Mario Bros. (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/example/sm2.html">Super Mario Bros. 2 (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/example/sm3.html">Super Mario Bros. 3 (NES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/zeldanes.html">The Legend of Zelda (NES)</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/version@9d48e36c4ff386202d3ecd39f3194b3335b7b799/slope.xml">Slope</a></li>
+         <li><a target="_blank" href="https://script.google.com/a/macros/watervillecsd.org/s/AKfycbz1JWJf7nF49Unm5GRRW5G972NLnRyyEajLsP9pm42uumQgckEqwXepS2M_oVb4qH4neA/exec">Cookie Clicker</a></li>
+         <li><a target="_blank" href="https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fmario-street-fight.xml">Mario Street Fight</a></li>
+         <li><a target="_blank" href="https://arkshocer.github.io/sm64/">Super Mario 64</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if3dv@66c73577d404dbf17a688cd4ae3198db4ba840d4/zm48hw/bs.xml">Basketball Stars</a></li>
+         <!-- U GOTTA CHECK IF SOME ARE BLOCKED!!!! -->
+         <li><a target="_blank" href="https://scratch.mit.edu/projects/469219637/embed/">FNAF 2</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if10dv@f748f1f06cb74be765727d459d490b8664c60175/f12ds3/moto-x3m.xml">Moto X3M</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if9dv@dfef81e22f0398c8892ef6fd2f68a00dc4551316/a8kigf/vd8g3s.xml">Minecraft Classic</a></li>
+         <li><a target="_blank" href="https://cookieduck.com/retrobowl/">Retro Bowl</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://840137492-163049537400263946.preview.editmysite.com/uploads/b/139890129-622598590552046666/files/mx3m2.xml">Moto X3M 2</a></li>
+         <li><a target="_blank" href="https://www.google.com/logos/2019/july4th19/r3/july4th19.html">Google Baseball</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Falien-hominid.xml">Alien Hominid</a></li>
+         <li><a target="_blank" href="https://script.google.com/macros/s/AKfycbyqOcz_7jQ7Lq8vV4RgI0j6RU8j0Fwd-Zg6ZVE14_kdZ6809SzLxqVVuwrLCJEJzF_QZQ/exec">Age of War</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/f107b843-3661-4036-9397-2b0c6414a369%2Fapple-shooter.xml">Apple Shooter</a></li>
+         <li><a target="_blank" href="https://script.google.com/macros/s/AKfycbxEx_8IBAlcqszNpGed8dMLcO0s9nrQDn9-SF6-JN_kf0CResK6CEuXPCnv90HoZbo4LQ/exec">Abbobos Big Adventure</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fbloxors.xml">Bloxorz</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fbloons_tower_defense.xml">Bloons TD</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fbubble-shooter.xml">Bubble Shooter</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcommando.xml">Commando</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://269364061-735180362845519405.preview.editmysite.com/uploads/b/139890129-126776425340353336/files/cufield.xml">Cubefield</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fdad-n-me.xml">Dad 'N Me</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/vue-tables-2@1b8b48a642e410d2e3db5f04deb7cf3fec30c513/lib/dl1.xml">Duck Life</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@db7c558f6d366da74fcbbf98407d81120c76221e/0aynf57j/duck-life-2.xml">Duck Life 2</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@07697277b06353fcdb759699d0c8b5f2f9303975/lft6d3g/ducklife-3.xml">Duck Life 3</a></li>
+         
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Felectric-man.xml">Electricman 2</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fescaping-the-prison.xml">Escaping the Prison</a></li>
+
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Ffancy-pants-adventure.xml">The Fancy Pants Adventures</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fhobo.xml">Hobo</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fhobo-prison-brawl.xml">Hobo 2</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Flearn_to_fly.xml">Learn to Fly</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fstick-rpg.xml">Stick RPG</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fthis_is_the_only_level.xml">This is the Only Level</a></li>
+         <li><a target="_blank" href="https://www.google.com/logos/2010/pacman10-i.html">Pacman</a></li>
+         <!--MAKE SURE TO USE AS EXAMPLE --> <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fpapa-s-pizzeria.xml">Papa's Pizzeria</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fmario-combat.xml">Mario Combat</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fdrift_runners.xml">Drift Runners</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Friddle-school.xml">Riddle School</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Friddle-school-2.xml">Riddle School 2</a></li>
+<!-- THIS STUFF ISNT FIXED YET! -->
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Frun1.xml">Run</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Ftetris.xml">Tetris</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fthe_impossible_quiz.xml">The Impossible Quiz</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fthe-world-s-hardest-game.xml">The World's Hardest Game</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/ruffleforunblockedgame/rf@main/harde643.xml">The World's Hardest Game 2</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2FTossTheTurtle.xml">Toss the Turtle</a></li>
+         <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fultimate-flash-sonic.xml">Ultimate Flash Sonic</a></li>
          <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/GBA-gh-pages/launcher.html#dkc">Donkey Kong Country (GBA)</a></li>
          <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/GBA-gh-pages/launcher.html#dm">DOOM (GBA)</a></li>
          <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/GBA-gh-pages/launcher.html#gta">Grand Theft Auto (GBA)</a></li>
@@ -685,6 +730,7 @@ ZOMBOTRON , JETPACK JOYRIDE ,
          <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/papaburger.html">Papa's Burgeria</a></li>
          <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/papapasta.html">Papa's Pastaria</a></li>
          <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/papataco.html">Papa's Tacomia</a></li>
+         <!-- END OF CONSTRUCTION AREA -->
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/rocketleauge/index.html">Rocket League Unofficial</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/flash/index.html?swf=Angry%20Birds%20HD.swf">Angry Birds HD</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/flash/index.html?swf=BloonsTowerDefense2.swf">Bloons TD 2</a></li>
@@ -732,12 +778,11 @@ ZOMBOTRON , JETPACK JOYRIDE ,
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/cars.io/index.html">Cars.io</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/cars-simulator/index.html">Cars Simulator</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/cluster-rush/index.html">Cluster Rush</a></li>
-         <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/csgo-clicker/index.html">CSGO Clicker</a></li>
+         <li><a target="_blank" href="./games/csgo-clicker.html">CSGO Clicker</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/doodle-jump/index.html">Doodle Jump</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/horde-killer/index.html">Horde Killer</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/krunker/index.html">Krunker</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/madalinstuntcars3/index.html">Madalin Stunt Cars 3</a></li>
-         <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/monkeymart/index.html">Monkey Mart</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/santy-is-home/index.html">Santy is Home</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/very-very-plane/index.html">Very Very Plane</a></li>
          <li><a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/idle-dice/index.html">Idle Dice</a></li>
@@ -754,9 +799,6 @@ ZOMBOTRON , JETPACK JOYRIDE ,
          <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if10dv@89348f94772b438b3d75e20cd7dc442e68f9e61a/kds634h/poop-clicker-2.xml">Poop Clicker 2</a></li>
          <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fpoop-clicker.xml">Poop Clicker</a></li>
          <li><a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fclicker-heroes.xml">Clicker Heroes</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/NYshark.html">New York Shark</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/emu/umk3.html">Ultimate Mortal Kombat 3 (SNES)</a></li>
-         <li><a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/emu/wwf.html">WWF No Mercy (N64)</a></li>
         
         </div></ol></div>
         
@@ -769,9 +811,12 @@ ZOMBOTRON , JETPACK JOYRIDE ,
         <h6>This is extremely bulk because it is hard to maintain both the search bar and the all in one section while adding games consistently.<br>
         I will not make it otherwise, so don't complain about it.</h6>
 
-<div class="column">
-  <a href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fstick-rpg-complete.xml">Stick RPG Complete (2?)</a>
-  
+<div class="column"> 
+  <a target="_blank" href="https://unblocked-games.s3.amazonaws.com/games/2021/3/police-chase-drifter/unblocked.html">Police Chase Drifter</a> <br>
+  <a target="_blank" href="https://unblocked-games.s3.amazonaws.com/games/2022/unity2/urban-sniper/unblocked.html">Urban Sniper</a><br>
+  <a href="./games/monkeymart.html" target="_blank">Monkey Mart</a><br>
+  <a target="_blank" href="./games/drivemad.html">Drive Mad</a><br>
+  <a target="_blank" href="./games/BRR-SKIBIDI-DOP-DOP-DOP-YES-YES.html">Skibidi Toilet</a>
   </div>
        <div class="column">   
  <a target="_blank" href="https://script.google.com/macros/s/AKfycbyR_8tPkQ8e0bo2WrV38CXPV2blNJ2M2DL0FJGuMWwu36L7LJMGO5hW0PJOjKB7JZhvoQ/exec">Dino Meat Hunt</a><br>
@@ -960,16 +1005,16 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://472361-648417.preview.editmysite.com/uploads/b/139890129-448095031924850252/files/st-climb.xml">Stickman Climb</a>
 </div><div class="column">
 <a target="_blank" href="https://mj89sp3sau2k7lj1eg3k40hkeppguj6j-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=http://www.gstatic.com/sites-gadgets/iframe/iframe.xml&container=enterprise&view=default&lang=ru&country=ALL&sanitize=0&v=c8088f253fe9d6d6&libs=core&mid=3921&parent=https://google.com/static_files#up_scroll=no&up_iframeURL=https://debbiewatermanphd.com/uploads/3/4/3/4/139890129/custom_themes/943031582154601096/files/1index.html">Blockpost</a><br>
-<a target="_blank" href="https://wellsousaaa.github.io/Five-Nights-at-Freddys-Web/">FNAF Web</a><br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if8dv@2247e549da02c36db71b10c56f4c1e713ae5b7a5/zjt64geg/idle-breakout.xml">Idle Breakout</a><br>
 <a target="_blank" href="https://vex7.ubg235.com/">Vex 7</a><br>
-<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://882300221708216345-489941489768578779.preview.editmysite.com/uploads/b/139890129-360170156295738788/files/vx6.xml">Vex 6</a>
+<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://882300221708216345-489941489768578779.preview.editmysite.com/uploads/b/139890129-360170156295738788/files/vx6.xml">Vex 6</a>  
+<a href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fstick-rpg-complete.xml">Stick RPG Complete (2?)</a>
 </div><div class="column">
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if12dv@201876d932626e924dbe121fca73eb76a2385b8d/b4dh63/d8g3s.xml">Vex 5</a><br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if12dv@dba2984356cca2ac1bfff5bdd272b9488c6f687c/fr3hg6w/vex-4.xml">Vex 4</a><br>
 <a target="_blank" href="https://gavan228.github.io/gaming/vex3/index.html">Vex 3</a><br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fvex.xml">Vex 1</a><br>
-<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if11dv@450edc9ff6fe572e5c4d4be93313a436d7526181/5sd4g6/temple-run.xml">Temple Run: Shitty Edition 🔥😎</a>
+<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if11dv@450edc9ff6fe572e5c4d4be93313a436d7526181/5sd4g6/temple-run.xml">Temple Run: Shitty Edition</a>
 </div><div class="column">
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@b1961d79577fbdfcf4033025c72e34d4ffcf001e/ps94jf2/snowball-io.xml">Snowball.io</a><br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@e0fc7498c465343e51c5ee89f7c634f40855f73e/fg67s3f/Sling-Drift.xml">Sling Drift</a><br>
@@ -1041,7 +1086,7 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://582730184-285370415285963742.preview.editmysite.com/uploads/b/139890129-570357850975857947/files/cw2.xml">Castel Wars: Middle Ages</a> <br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://472194026-173855921063829472.preview.editmysite.com/uploads/b/139890129-242538496556686826/files/cw2ne.xml">Castel Wars: New Era</a> <br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcastle-wars-2.xml">Castle Wars 2</a> <br>
-<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-burglar.xml">Cat Burglar: Magic Museum</a> <br>
+<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-burglar.xml">Cat Burglar</a> <br>
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcatch-the-candy.xml">Catch the Candy</a> <br>
 </div><div class="column">
 <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fcat-in-japan.xml">Cat in Japan</a> <br>
@@ -1284,15 +1329,14 @@ ZOMBOTRON , JETPACK JOYRIDE ,
 <a target="_blank" href="https://studio.code.org/projects/gamelab/uoyZRdqnkDG2V4VKdIr_pNNykIpE9VOIIEy7gaiyrAU/">Firefighter!</a><br>
       <a target="_blank" href="https://studio.code.org/projects/gamelab/eFmUNuuDW2CnfwsaRG79nuKHiB6_oyIy9AywZJkakpg/">Fire Dash</a><br>
       </div><div class="column">
-      <a target="_blank" href="https://gg-opensocial.googleusercontent.com/gadgets/ifr?url=https://295734015-153005836283618337.preview.editmysite.com/uploads/b/139890129-329349294395718866/files/dm.xml">Drive Mad</a><br>
+      <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fdrift_runners.xml">Drift Runners</a>><br>
       <a target="_blank" href="https://gertdoro.github.io/3hg7dj3bnc82/index.html">Subway Surfers</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/miscgame/1v1lol.html">1v1.lol</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/slope/index.html">Slope</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/cookie/index.html">Cookie Clicker</a><br>
+         <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/fr6ks8ab/vi9syd1rm@84d73b06974a0734495c3c1f280653183b357524/ls49v2n/slope.xml">Slope</a><br>
+         <a target="_blank" href="https://script.google.com/a/macros/watervillecsd.org/s/AKfycbz1JWJf7nF49Unm5GRRW5G972NLnRyyEajLsP9pm42uumQgckEqwXepS2M_oVb4qH4neA/exec">Cookie Clicker</a><br>
          </div><div class="column">
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/mario/index.html">Mario</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/sm64/index.html">Super Mario 64</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/bstars/index.html">Basketball Stars</a><br>
+         <a target="_blank" href="https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fmario-street-fight.xml">Mario Street Fight</a><br>
+         <a target="_blank" href="https://arkshocer.github.io/sm64/">Super Mario 64</a><br>
+         <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if3dv@66c73577d404dbf17a688cd4ae3198db4ba840d4/zm48hw/bs.xml">Basketball Stars</a><br>
          <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/run3/index.html">Run 3</a><br>
          <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/FNAF/2/index.html">FNAF 2</a><br>
          </div><div class="column">
@@ -1465,13 +1509,12 @@ ZOMBOTRON , JETPACK JOYRIDE ,
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/cars-simulator/index.html">Cars Simulator</a><br>
          </div><div class="column">
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/cluster-rush/index.html">Cluster Rush</a><br>
-         <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/csgo-clicker/index.html">CSGO Clicker</a><br>
+         <a target="_blank" href="./games/csgo-clicker.html">CSGO Clicker</a><br>
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/doodle-jump/index.html">Doodle Jump</a><br>
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/horde-killer/index.html">Horde Killer</a><br>
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/krunker/index.html">Krunker</a><br>
          </div><div class="column">
          <a target="_blank" href="https://lbannana.github.io/madalinstuntcars3/index.html">Madalin Stunt Cars 3</a><br>
-         <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/monkeymart/index.html">Monkey Mart</a><br>
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/santy-is-home/index.html">Santy is Home</a><br>
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/very-very-plane/index.html">Very Very Plane</a><br>
          <a target="_blank" href="https://lbannana.github.io/lbannana-assets/html/idle-dice/index.html">Idle Dice</a><br>
@@ -1491,10 +1534,10 @@ ZOMBOTRON , JETPACK JOYRIDE ,
          <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3tq6l1/to9d2if10dv@89348f94772b438b3d75e20cd7dc442e68f9e61a/kds634h/poop-clicker-2.xml">Poop Clicker 2</a><br>
          <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fpoop-clicker.xml">Poop Clicker</a><br>
          <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fclicker-heroes.xml">Clicker Heroes</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/NYshark.html">New York Shark</a><br>
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/emu/umk3.html">Ultimate Mortal Kombat 3 (SNES)</a><br>
+         <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fmortal-kombat-karnage.xml">Mortal Kombat: Karnage</a><br>
+         <a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/8c491f21-7353-4f1f-b2a0-9544824c4d28%2Fhungry_shark.xml">Hungry Shark</a><br>
          </div><div class="column">
-         <a target="_blank" href="https://cbgamesdev.github.io/chilibowlflash/emu/wwf.html">WWF No Mercy (N64)</a><br>
+<a target="_blank" href="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Fbullet-time-fighting.xml">Bullet Time Fighting</a><br>
 <a target="_blank" href="/games/offlineparadise.html">Offline Paradise</a><br>	
 <a target="_blank" href="/games/trianglebacktohome.html">Triangle: Back to Home</a><br>	
 <a target="_blank" href="/games/wander.html">Wander</a>

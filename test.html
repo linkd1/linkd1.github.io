@@ -1,2 +1,221 @@
-<body style="background-color:green;">
-    <h1>BRO WTF MAX TURNED IT GREEN</h1>
+  <!DOCTYPE html> 
+ <html>
+<head>
+<title>Games</title>
+<style>
+    body {
+		background-image: url(https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80); /* The image used for background*/
+        background-repeat: no-repeat;
+        background-position: center; 
+        background-size: cover;
+			background-color: #09325c;
+			font-family: Arial, sans-serif;
+			color: lightblue;
+		}
+
+		a {
+		color: white;
+		}
+		
+	#list {padding-left: 68px; }
+	
+		h1, h2, h3, h4, h5, h6 {
+			color: lightblue;
+		}
+		
+		a {
+		font-size: 20px;
+		}
+
+	{
+		font-size: 20px;
+		}
+		.column {
+			display: inline-block;
+			width: 15%;
+			vertical-align: top;
+			box-sizing: border-box;
+            padding: 5px;
+		}
+		.back-btn {
+			background-color: #4CAF50;
+			color: white;
+			border: 5px black;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin-top: 10px;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+		
+		.back-btn:hover {
+			background-color: #3e8e41;
+		}
+        #searchbar{
+     margin-left: 15%;
+     padding:15px;
+     border-radius: 10px;
+   }
+ 
+   input[type=text] {
+      width: 30%;
+      -webkit-transition: width 0.15s ease-in-out;
+      transition: width 0.15s ease-in-out;
+   }
+ 
+   /* When the input field gets focus,
+        change its width to 100% */
+   input[type=text]:focus {
+     width: 70%;
+   }
+ 
+  #list{
+    font-size:  1.5em;
+   }
+ 
+.animals{
+   display: list-item;    
+  } 
+
+  .column a {
+  
+  }
+  li{
+  display:none;
+}
+.itemconfiguration
+    {
+        height: 440px;
+        width: 615px;
+        overflow: auto;
+        float: left;
+        position: relative;
+        margin-left: 15px;
+        border: 5px solid black;
+        background-color: #16171d;
+    }
+li.active{
+  display:list-item;
+}
+#recently-played {
+height: 200px;
+width: 175px;
+overflow: auto;
+float: right;
+position: relative;
+margin-right: 360px;
+border: 3px solid black;
+background-color: #16171d;
+}
+        </style>
+        
+        <!-- Script for search bar -->
+        <script>
+    function search_animal() {
+  let input = document.getElementById('searchbar').value
+  input = input.toLowerCase();
+  let links = document.querySelectorAll('#list li');
+  
+  links.forEach((e) => {
+    e.classList.toggle("active",e.innerText.toLowerCase().includes(input))
+  });
+}
+
+let searchbar = document.querySelector("#searchbar");
+searchbar.addEventListener("input",search_animal);
+</script>
+	<script>
+		const target_blank = document.querySelectorAll('.target_blank a');
+for (const el of target_blank) {
+  el.target = "_blank";
+}
+	</script>
+
+<!-- Script for recently played games -->
+  <script>
+    function updateRecentGames(gameId, gameName) {
+      const recentGames = JSON.parse(localStorage.getItem('recentGames')) || {};
+
+      delete recentGames[gameId];
+
+      recentGames[gameId] = Date.now();
+
+      const maxGames = 5;
+      const sortedGames = Object.entries(recentGames).sort((a, b) => b[1] - a[1]);
+      const slicedGames = sortedGames.slice(0, maxGames);
+
+      const limitedGames = slicedGames.reduce((obj, [id, timestamp]) => {
+        obj[id] = timestamp;
+        return obj;
+      }, {});
+
+      localStorage.setItem('Sure, here is the continuation of the previous response:')
+ localStorage.setItem('recentGames', JSON.stringify(limitedGames));
+
+  const recentGamesList = document.getElementById('recentGamesList');
+  recentGamesList.innerHTML = '';
+
+  for (const [id, timestamp] of Object.entries(limitedGames)) {
+    const gameName = document.querySelector(`[data-game-id="${id}"]`).textContent;
+    const listItem = document.createElement('li');
+    listItem.textContent = `${gameName} (Opened: ${new Date(timestamp).toLocaleString()})`;
+    recentGamesList.appendChild(listItem);
+  }
+}
+
+const gameLinks = document.querySelectorAll('.animals a');
+gameLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
+    const gameId = this.getAttribute('data-game-id');
+    const gameName = this.textContent;
+    updateRecentGames(gameId, gameName);
+  });
+});
+
+window.addEventListener('load', function() {
+  const recentGames = JSON.parse(localStorage.getItem('recentGames')) || {};
+  updateRecentGames(recentGames);
+});
+</script> 
+    </head>
+
+
+
+    <body><center>
+    <form class="back-btn" style="background-color: black;" action="index.html">
+    <input style="background-color: #4CAF50; color: white; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer;" type="submit" value="<-- Back" />
+</form><br><br>
+	    
+	    </center>
+<!-- input tag -->
+    <input id="searchbar" onkeyup="search_animal()" type="text"
+        name="search" placeholder="Search games..">
+      <br><br>
+	    <div alt="container" class="target_blank">
+        <div id="recently-played"><center>
+    <h2>Recently Played</h2></center>
+    <ul id="recentFilesList">
+       
+    </ul>
+</div>
+
+    <!-- ordered list --><div class="itemconfiguration">
+    <ol id='list'><div class="animals">
+ <!-- These are examples because the real list is very long -->
+<li><a target="_blank" href="example1.html">Example 1</a></li>
+<li><a target="_blank" href="example2.html">Example 2</a></li>
+<li><a target="_blank" href="example3.html">Example 3</a></li>
+<li><a target="_blank" href="example4.html">Example 4</a></li>
+<li><a target="_blank" href="example5.html">Example 5</a></li>
+
+        </div></ol></div>
+        
+        
+        
+</center>
+        </body>
+
+        </html>

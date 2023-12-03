@@ -16,6 +16,23 @@
       .pim {
       font-size: 8px;
       }
+      .glow {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #3b005f, 0 0 20px #3b005f, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  to {
+    text-shadow: 0 0 20px #3b005f, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
       </style>
       <style>
       body {
@@ -146,6 +163,8 @@ REPOSITORIES ON THIS WEBSITE</p></center>
           height="150px"
           style="border-radius: 50%"
         /><br>
+       </i> <h2 class="glow">V3.1.2</h2>
+       <i>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-599LEQKNXZ"></script>
 <script>

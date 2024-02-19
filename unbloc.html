@@ -1,3 +1,4 @@
+
   <!DOCTYPE html>
  <html>
 <head>
@@ -93,6 +94,25 @@
   }
   li{
   display:none;
+}
+
+.random-button {
+    background-color: #4a4cff;
+    color: white;
+    border: 2px solid #4a4cff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.random-button:hover {
+    background-color: #3344ff;
+}
+
+.random-button:active {
+    background-color: #1a23ff;
 }
 .itemconfiguration
     {
@@ -192,6 +212,14 @@ window.addEventListener('load', function() {
   updateRecentGames(recentGames);
 });
 </script> 
+<script>
+function pickRandomGame() {
+    var games = document.querySelectorAll('.animals li a');
+    var randomIndex = Math.floor(Math.random() * games.length);
+    var randomGame = games[randomIndex];
+    window.open(randomGame.href, '_blank');
+}
+</script>
     </head>
 
 
@@ -231,7 +259,9 @@ window.addEventListener('load', function() {
        
     </ul>
 </div>
-
+<br>
+<button class='random-button' onclick="pickRandomGame()">Pick a Random Game</button>
+<br><br><br>
     <!-- ordered list --><div class="itemconfiguration">
     <ol id='list'><div class="animals">
 

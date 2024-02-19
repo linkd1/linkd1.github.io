@@ -1,5 +1,4 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
  <html>
 <head>
   <link rel="shortcut icon" type="image/x-icon" href="./misc-files/LINKD.png" />
@@ -92,10 +91,13 @@
   .column a {
   
   }
-  li{
+  .itemconfiguration li{
   display:none;
 }
 
+#recentFilesList li {
+display:inherit;
+}
 .random-button {
     background-color: #4a4cff;
     color: white;
@@ -139,7 +141,43 @@ margin-right: 360px;
 border: 3px solid black;
 background-color: #16171d;
 }
-        </style><script>
+        </style>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Function to add a recently played game
+    function addRecentlyPlayedGame(gameName, gameLink) {
+        var recentlyPlayedList = document.getElementById('recentFilesList');
+        console.log("recentFilesList:", recentlyPlayedList); // Log the recentFilesList element
+        var listItem = document.createElement('li');
+        var link = document.createElement('a');
+        link.textContent = gameName;
+        link.setAttribute('href', gameLink);
+        link.setAttribute('target', '_blank');
+        listItem.appendChild(link);
+        recentlyPlayedList.prepend(listItem); // Add the new game to the beginning of the list
+    }
+
+    // Handle click events on game links using event delegation
+    document.querySelector('.itemconfiguration .animals').addEventListener('click', function(event) {
+        // Check if the clicked element is a game link
+        if (event.target.tagName === 'A') {
+            // Prevent default link behavior
+            event.preventDefault();
+
+            // Get the game name and link from the clicked link
+            var gameName = event.target.textContent;
+            var gameLink = event.target.getAttribute('href');
+
+            // Add the game to the recently played list
+            addRecentlyPlayedGame(gameName, gameLink);
+
+            // Open the game link in a new tab
+            window.open(gameLink, '_blank');
+        }
+    });
+});
+        </script>
+        <script>
     function search_animal() {
   let input = document.getElementById('searchbar').value
   input = input.toLowerCase();

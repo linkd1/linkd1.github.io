@@ -144,18 +144,55 @@ background-color: #16171d;
         </style>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
+    // Load recently played games from localStorage on page load
+    var recentlyPlayedGames = JSON.parse(localStorage.getItem('recentlyPlayedGames')) || [];
+
+    // Function to save the recently played games list to localStorage
+    function saveRecentlyPlayedGames() {
+        localStorage.setItem('recentlyPlayedGames', JSON.stringify(recentlyPlayedGames));
+    }
+
     // Function to add a recently played game
     function addRecentlyPlayedGame(gameName, gameLink) {
-        var recentlyPlayedList = document.getElementById('recentFilesList');
-        console.log("recentFilesList:", recentlyPlayedList); // Log the recentFilesList element
-        var listItem = document.createElement('li');
-        var link = document.createElement('a');
-        link.textContent = gameName;
-        link.setAttribute('href', gameLink);
-        link.setAttribute('target', '_blank');
-        listItem.appendChild(link);
-        recentlyPlayedList.prepend(listItem); // Add the new game to the beginning of the list
+        // Check if the game is already in the list
+        var index = recentlyPlayedGames.findIndex(function(game) {
+            return game.name === gameName && game.link === gameLink;
+        });
+
+        // If the game is not in the list, add it
+        if (index === -1) {
+            recentlyPlayedGames.unshift({ name: gameName, link: gameLink }); // Add to the beginning of the array
+        } else {
+            // If the game is already in the list, move it to the beginning
+            recentlyPlayedGames.splice(index, 1); // Remove the existing entry
+            recentlyPlayedGames.unshift({ name: gameName, link: gameLink }); // Add to the beginning of the array
+        }
+
+        // Save the updated list to localStorage
+        saveRecentlyPlayedGames();
+
+        // Render the recently played games list
+        renderRecentlyPlayedGames();
     }
+
+    // Function to render the recently played games list
+    function renderRecentlyPlayedGames() {
+        var recentlyPlayedList = document.getElementById('recentFilesList');
+        recentlyPlayedList.innerHTML = ''; // Clear the list
+
+        recentlyPlayedGames.forEach(function(game) {
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+            link.textContent = game.name;
+            link.setAttribute('href', game.link);
+            link.setAttribute('target', '_blank');
+            listItem.appendChild(link);
+            recentlyPlayedList.appendChild(listItem);
+        });
+    }
+
+    // Render the initially loaded recently played games list
+    renderRecentlyPlayedGames();
 
     // Handle click events on game links using event delegation
     document.querySelector('.itemconfiguration .animals').addEventListener('click', function(event) {
@@ -252,11 +289,44 @@ window.addEventListener('load', function() {
 });
 </script> 
 <script>
+// Function to add a recently played game
+function addRecentlyPlayedGame(gameName, gameLink) {
+    var recentlyPlayedList = document.getElementById('recentFilesList');
+    var listItem = document.createElement('li');
+    var link = document.createElement('a');
+    link.textContent = gameName;
+    link.setAttribute('href', gameLink);
+    link.setAttribute('target', '_blank');
+    listItem.appendChild(link);
+    recentlyPlayedList.prepend(listItem); // Add the new game to the beginning of the list
+}
+
+// Function to pick a random game
 function pickRandomGame() {
     var games = document.querySelectorAll('.animals li a');
     var randomIndex = Math.floor(Math.random() * games.length);
     var randomGame = games[randomIndex];
+    // Open the selected random game in a new tab
     window.open(randomGame.href, '_blank');
+    
+    // Add the selected random game to the recently played games list
+    var gameName = randomGame.textContent;
+    var gameLink = randomGame.href;
+    addRecentlyPlayedGame(gameName, gameLink);
+
+    // Update the recently played games list display
+    renderRecentlyPlayedGames();
+}
+
+// Function to render the recently played games list
+function renderRecentlyPlayedGames() {
+    var recentlyPlayedList = document.getElementById('recentFilesList');
+    var games = recentlyPlayedList.querySelectorAll('li');
+    if (games.length > 5) {
+        for (var i = 5; i < games.length; i++) {
+            recentlyPlayedList.removeChild(games[i]);
+        }
+    }
 }
 </script>
     </head>

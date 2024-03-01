@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Thumbnail Viewer</title>
+<style>
+  body {
+    background-image: url(https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: #18191f;
+    font-family: Arial, sans-serif;
+    color: lightblue;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: lightblue;
+  }
+
+  a {
+    color: white;
+    font-size: 20px;
+  }
+
+  .container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  input[type=text] {
+    width: 40%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #3e8e41;
+  }
+
+  #thumbnail {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>YouTube Thumbnail Viewer</h1>
+  <input type="text" id="youtubeUrl" placeholder="Enter YouTube video URL">
+  <button onclick="getThumbnail()">Get Thumbnail</button>
+  <br>
+  <img src="" alt="Image appears here" id="thumbnail">
+</div>
+
+<script>
+  function getThumbnail() {
+    var youtubeUrl = document.getElementById('youtubeUrl').value;
+    var videoId = getVideoId(youtubeUrl);
+    
+    if (videoId !== null) {
+      var thumbnailUrl = 'https://img.youtube.com/vi/' + videoId + '/0.jpg';
+      document.getElementById('thumbnail').src = thumbnailUrl;
+    } else {
+      alert('Invalid YouTube URL');
+    }
+  }
+  
+  function getVideoId(url) {
+    var regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    var match = url.match(regExp);
+    return match ? match[1] : null;
+  }
+</script>
+</body>
+</html>

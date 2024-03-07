@@ -37,8 +37,12 @@
         var xmlDoc = parser.parseFromString(xmlContent, "text/xml");
         var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
 
-        // Inject HTML content into the body of the HTML document
-        document.body.innerHTML = htmlContent;
+        // Create a temporary container element
+        var container = document.createElement('div');
+        container.innerHTML = htmlContent;
+
+        // Append the container to the body of the HTML document
+        document.body.appendChild(container);
       })
       .catch(error => {
         console.error(error.message);

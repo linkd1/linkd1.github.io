@@ -37,12 +37,8 @@
           var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
           console.log('HTML content:', htmlContent);
 
-          // Create a temporary container element
-          var container = document.createElement('div');
-          container.innerHTML = htmlContent;
-
-          // Append the container to the body of the HTML document
-          document.body.appendChild(container);
+          // Completely replace the existing content of the HTML document with the extracted HTML content
+          document.documentElement.innerHTML = htmlContent;
         } else {
           console.error('Failed to load XML:', xmlRequest.statusText);
         }

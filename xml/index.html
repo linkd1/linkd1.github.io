@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>XML to HTML Transformation</title>
+  <!-- Add any necessary CSS stylesheets here -->
 </head>
 <body>
 <script>
@@ -38,7 +39,9 @@
           console.log('HTML content:', htmlContent);
 
           // Completely replace the existing content of the HTML document with the extracted HTML content
-          document.documentElement.innerHTML = htmlContent;
+          document.open();
+          document.write(htmlContent);
+          document.close();
         } else {
           console.error('Failed to load XML:', xmlRequest.statusText);
         }

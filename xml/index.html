@@ -24,14 +24,23 @@
       // Load the XML document
       var xml = new XMLHttpRequest();
       xml.open("GET", xmlUrl, false);
+      xml.onreadystatechange = function() {
+        if (xml.readyState === 4) {
+          if (xml.status === 200) {
+            // Get the HTML content from the XML document
+            var xmlDoc = xml.responseXML;
+            var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
+            
+            console.log('HTML content:', htmlContent);
+
+            // Inject HTML content into the body of the HTML document
+            document.body.innerHTML = htmlContent;
+          } else {
+            console.error('Failed to load XML:', xml.statusText);
+          }
+        }
+      };
       xml.send();
-
-      // Get the HTML content from the XML document
-      var xmlDoc = xml.responseXML;
-      var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
-
-      // Inject HTML content into the body of the HTML document
-      document.body.innerHTML = htmlContent;
     }
   </script>
 </head>

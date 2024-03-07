@@ -3,47 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <title>XML to HTML Transformation</title>
-  <script>
-    function getUrlParameter(name) {
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(window.location.href);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    function loadXmlContent() {
-      // Get the XML file URL from the URL parameter
-      var xmlUrl = getUrlParameter('url');
-      if (!xmlUrl) {
-        console.error('XML file URL not provided.');
-        return;
-      }
-
-      // Load the XML document
-      var xml = new XMLHttpRequest();
-      xml.open("GET", xmlUrl, false);
-      xml.onreadystatechange = function() {
-        if (xml.readyState === 4) {
-          if (xml.status === 200) {
-            // Get the HTML content from the XML document
-            var xmlDoc = xml.responseXML;
-            var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
-            
-            console.log('HTML content:', htmlContent);
-
-            // Inject HTML content into the body of the HTML document
-            document.body.innerHTML = htmlContent;
-          } else {
-            console.error('Failed to load XML:', xml.statusText);
-          }
-        }
-      };
-      xml.send();
-    }
-  </script>
 </head>
-<body onload="loadXmlContent()">
+<body>
+<script>
+  function getUrlParameter(name) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(window.location.href);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  function loadXmlContent() {
+    // Get the XML file URL from the URL parameter
+    var xmlUrl = getUrlParameter('url');
+    if (!xmlUrl) {
+      console.error('XML file URL not provided.');
+      return;
+    }
+
+    // Fetch the XML content asynchronously
+    fetch(xmlUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch XML: ' + response.statusText);
+        }
+        return response.text();
+      })
+      .then(xmlContent => {
+        // Extract the HTML content from the XML
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xmlContent, "text/xml");
+        var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
+
+        // Inject HTML content into the body of the HTML document
+        document.body.innerHTML = htmlContent;
+      })
+      .catch(error => {
+        console.error(error.message);
+      });
+  }
+
+  // Load XML content when the body is loaded
+  window.onload = loadXmlContent;
+</script>
 </body>
 </html>

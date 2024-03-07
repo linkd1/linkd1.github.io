@@ -26,29 +26,15 @@
       xml.open("GET", xmlUrl, false);
       xml.send();
 
-      // Load the XSLT stylesheet
-      var xsl = new XMLHttpRequest();
-      xsl.open("GET", "transform.xslt", false);
-      xsl.send();
-
-      // Create XSLT processor
-      var xsltProcessor = new XSLTProcessor();
-      xsltProcessor.importStylesheet(xsl.responseXML);
-
-      // Transform XML using XSLT
-      var resultDocument = xsltProcessor.transformToDocument(xml.responseXML);
-
-      // Get the HTML content from the result document
-      var htmlContent = new XMLSerializer().serializeToString(resultDocument.documentElement);
+      // Get the HTML content from the XML document
+      var xmlDoc = xml.responseXML;
+      var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
 
       // Inject HTML content into the body of the HTML document
       document.body.innerHTML = htmlContent;
     }
-
-    // Call the transformXml function when the page is loaded
-    window.onload = transformXml;
   </script>
 </head>
-<body>
+<body onload="transformXml()">
 </body>
 </html>

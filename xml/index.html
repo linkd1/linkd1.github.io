@@ -13,7 +13,7 @@
       return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
-    function transformXml() {
+    function loadXmlContent() {
       // Get the XML file URL from the URL parameter
       var xmlUrl = getUrlParameter('url');
       if (!xmlUrl) {
@@ -32,25 +32,9 @@
 
       // Inject HTML content into the body of the HTML document
       document.body.innerHTML = htmlContent;
-
-      // Dynamically load linked resources (e.g., scripts, stylesheets)
-      var links = document.querySelectorAll('head link[href], body script[src]');
-      for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        var clone = document.createElement(link.tagName);
-        for (var j = 0; j < link.attributes.length; j++) {
-          clone.setAttribute(link.attributes[j].name, link.attributes[j].value);
-        }
-        if (link.tagName === 'SCRIPT') {
-          clone.onload = clone.onerror = function() {
-            console.log('Script loaded:', this.src);
-          };
-        }
-        document.head.appendChild(clone);
-      }
     }
   </script>
 </head>
-<body onload="transformXml()">
+<body onload="loadXmlContent()">
 </body>
 </html>

@@ -26,22 +26,26 @@
     // Load the XML content asynchronously
     var xmlRequest = new XMLHttpRequest();
     xmlRequest.onreadystatechange = function() {
-      if (xmlRequest.readyState == 4 && xmlRequest.status == 200) {
-        var xmlContent = xmlRequest.responseText;
+      if (xmlRequest.readyState == 4) {
+        if (xmlRequest.status == 200) {
+          var xmlContent = xmlRequest.responseText;
+          console.log('XML content:', xmlContent);
 
-        // Extract the HTML content from the XML
-        var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(xmlContent, "text/xml");
-        var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
+          // Extract the HTML content from the XML
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(xmlContent, "text/xml");
+          var htmlContent = xmlDoc.getElementsByTagName('Content')[0].textContent;
+          console.log('HTML content:', htmlContent);
 
-        // Create a temporary container element
-        var container = document.createElement('div');
-        container.innerHTML = htmlContent;
+          // Create a temporary container element
+          var container = document.createElement('div');
+          container.innerHTML = htmlContent;
 
-        // Append the container to the body of the HTML document
-        document.body.appendChild(container);
-      } else if (xmlRequest.readyState == 4) {
-        console.error('Failed to load XML:', xmlRequest.statusText);
+          // Append the container to the body of the HTML document
+          document.body.appendChild(container);
+        } else {
+          console.error('Failed to load XML:', xmlRequest.statusText);
+        }
       }
     };
     xmlRequest.open("GET", xmlUrl, true);
@@ -49,7 +53,10 @@
   }
 
   // Load XML content when the body is loaded
-  window.onload = loadXmlContent;
+  window.onload = function() {
+    console.log('Loading XML content...');
+    loadXmlContent();
+  };
 </script>
 </body>
 </html>

@@ -23,15 +23,12 @@
       return;
     }
 
-    // Fetch the XML content asynchronously
-    fetch(xmlUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch XML: ' + response.statusText);
-        }
-        return response.text();
-      })
-      .then(xmlContent => {
+    // Load the XML content asynchronously
+    var xmlRequest = new XMLHttpRequest();
+    xmlRequest.onreadystatechange = function() {
+      if (xmlRequest.readyState == 4 && xmlRequest.status == 200) {
+        var xmlContent = xmlRequest.responseText;
+
         // Extract the HTML content from the XML
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(xmlContent, "text/xml");
@@ -43,10 +40,12 @@
 
         // Append the container to the body of the HTML document
         document.body.appendChild(container);
-      })
-      .catch(error => {
-        console.error(error.message);
-      });
+      } else if (xmlRequest.readyState == 4) {
+        console.error('Failed to load XML:', xmlRequest.statusText);
+      }
+    };
+    xmlRequest.open("GET", xmlUrl, true);
+    xmlRequest.send();
   }
 
   // Load XML content when the body is loaded

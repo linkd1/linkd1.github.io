@@ -3,74 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XML Viewer</title>
-</head>
-<body>
-    <div id="xml-content">
-        <!-- XML content will be displayed here -->
-    </div>
-
+    <title>XML to HTML</title>
     <script>
-        // Function to parse XML content from a URL
+        // Function to load XML and apply XSLT transformation
         function loadXML(url) {
-            // Create a new XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
+            // Create an XMLHTTPRequest object
+            var xhttp = new XMLHttpRequest();
 
             // Define a callback function to handle the response
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // Parse the XML response
-                        var parser = new DOMParser();
-                        var xmlDoc = parser.parseFromString(xhr.responseText, 'text/xml');
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // XML content loaded successfully
+                    var xml = xhttp.responseXML;
+                    var xsltProcessor = new XSLTProcessor();
+                    var xsl = new XMLHttpRequest();
 
-                        // Display the parsed XML content
-                        displayXML(xmlDoc);
-                    } else {
-                        // Display an error message if the request fails
-                        displayError('Failed to load XML from ' + url);
-                    }
+                    // Load XSLT stylesheet
+                    xsl.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            xsltProcessor.importStylesheet(this.responseXML);
+
+                            // Apply XSLT transformation
+                            var resultDocument = xsltProcessor.transformToFragment(xml, document);
+                            document.getElementById("content").appendChild(resultDocument);
+                        }
+                    };
+
+                    xsl.open("GET", "transform.xslt", true);
+                    xsl.send();
                 }
             };
 
-            // Open a GET request to the specified URL
-            xhr.open('GET', url, true);
-
-            // Send the request
-            xhr.send();
+            // Send request to load XML
+            xhttp.open("GET", url, true);
+            xhttp.send();
         }
 
-        // Function to display the parsed XML content
-        function displayXML(xmlDoc) {
-            // Get the XML content container
-            var xmlContainer = document.getElementById('xml-content');
-
-            // Clear any existing content
-            xmlContainer.innerHTML = '';
-
-            // Convert the XML document to a string and display it
-            var xmlString = new XMLSerializer().serializeToString(xmlDoc);
-            xmlContainer.innerText = xmlString;
-        }
-
-        // Function to display an error message
-        function displayError(message) {
-            // Get the XML content container
-            var xmlContainer = document.getElementById('xml-content');
-
-            // Display the error message
-            xmlContainer.innerText = message;
-        }
-
-        // Get the URL parameter from the query string
-        var urlParam = new URLSearchParams(window.location.search).get('url');
-
-        // Load XML content from the specified URL
-        if (urlParam) {
-            loadXML(urlParam);
-        } else {
-            displayError('No URL parameter provided.');
-        }
+        // Load XML when the page loads
+        window.onload = function() {
+            // Get URL parameter
+            var urlParam = new URLSearchParams(window.location.search).get('url');
+            if (urlParam) {
+                // Load XML and apply XSLT transformation
+                loadXML(urlParam);
+            } else {
+                // No URL parameter provided
+                console.error('No URL parameter provided.');
+            }
+        };
     </script>
+</head>
+<body>
+    <!-- Content will be loaded dynamically here -->
+    <div id="content"></div>
 </body>
 </html>

@@ -44,8 +44,11 @@
       // Inject HTML content into the body of the HTML document
       document.body.innerHTML = htmlContent;
     }
+
+    // Call the transformXml function when the page is loaded
+    window.onload = transformXml;
   </script>
 </head>
-<body onload="transformXml()">
+<body>
 </body>
 </html>

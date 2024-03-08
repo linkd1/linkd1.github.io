@@ -1,0 +1,6 @@
+<Module>
+<ModulePrefs title="Tomb of the Mask"/>
+<Content type="html">
+<![CDATA[ <!DOCTYPE html><html><head><style>iframe{position:fixed;top:0;left:0;width:100%;height:100%;border:none;margin:0;padding:0;z-index:9999;background-color:black;overflow:hidden;}</style></head><body><iframe src="https://app-167802.games.s3.yandex.net/167802/q1y6lds41u6fav4j0irxhp3a736vtv3u/index.html?sdk=%2Fsdk%2F_%2Fv2.98ce82087892c64113b5.js#origin=https%3A%2F%2Fyandex.com&app-id=167802&device-type=desktop" width="100%" height="100%"></iframe></body></html> ]]>
+</Content>
+</Module>

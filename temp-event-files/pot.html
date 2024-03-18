@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Patrick's Day Celebration</title>
+    <style>
+        body {
+            background-color: #3b5323; /* Dark green background */
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        #clover {
+            width: 300px; /* Initial width */
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            margin: 50px auto; /* Center the image */
+        }
+        #clover:hover {
+            transform: scale(0.95); /* Slightly reduce size on hover */
+        }
+        #winning-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy St. Patrick's Day!</h1>
+    <img id="rainbow" src="rainbow.png" alt="Clover" height='300' width='300'>
+
+    <div id="winning-screen">
+        <p>You've found the pot of gold!</p>
+        <br><br><img id="pot" src="pot.png" alt="Pot" width='300' height='300'><br>
+        <h5>This screen will disappear after 2 minutes, so screenshot it!</h5><br>
+        <h5>To claim your prize, e-mail d.tsarddakas@gmail.com (not from school device) or contact in some other way.</h5>
+    </div>
+
+    <script>
+        const clover = document.getElementById('clover');
+        const winningScreen = document.getElementById('winning-screen');
+
+        // Function to handle clover click
+        function handleClick() {
+            // Reduce clover size slightly
+            clover.style.transform = 'scale(0.9)';
+            // Wait for animation to finish and then reset size
+            setTimeout(() => {
+                clover.style.transform = 'scale(1)';
+            }, 300);
+
+            // Check if user wins
+            const randomNum = Math.floor(Math.random() * 100000) + 1;
+            if (randomNum === 1) { // 1 in 100,000 chance
+                showWinningScreen();
+            }
+        }
+
+        // Function to show winning screen
+        function showWinningScreen() {
+            clover.style.display = 'none';
+            winningScreen.style.display = 'block';
+            setTimeout(() => {
+                clover.style.display = 'block';
+                winningScreen.style.display = 'none';
+            }, 120000); // Hide after 2 minutes
+        }
+
+        // Add click event listener to clover
+        clover.addEventListener('click', handleClick);
+    </script>
+</body>
+</html>

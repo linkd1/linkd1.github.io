@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-    <h1>Happy St. Patrick's Day!</h1>
+    <h1>Happy St. Patrick's Day!</h1><br><h3>It's pretty rare, so get clicking.</h3><br><h5>1/500,000 chance</h5>
     <img id="clover" src="rainbow.png" alt="Clover" height='300' width='300'>
 
     <div id="winning-screen">
@@ -48,37 +48,7 @@
     </div>
 
     <script>
-        const clover = document.getElementById('clover');
-        const winningScreen = document.getElementById('winning-screen');
-
-        // Function to handle clover click
-        function handleClick() {
-            // Reduce clover size slightly
-            clover.style.transform = 'scale(0.9)';
-            // Wait for animation to finish and then reset size
-            setTimeout(() => {
-                clover.style.transform = 'scale(1)';
-            }, 300);
-
-            // Check if user wins
-            const randomNum = Math.floor(Math.random() * 100000) + 1;
-            if (randomNum === 1) { // 1 in 100,000 chance
-                showWinningScreen();
-            }
-        }
-
-        // Function to show winning screen
-        function showWinningScreen() {
-            clover.style.display = 'none';
-            winningScreen.style.display = 'block';
-            setTimeout(() => {
-                clover.style.display = 'block';
-                winningScreen.style.display = 'none';
-            }, 120000); // Hide after 2 minutes
-        }
-
-        // Add click event listener to clover
-        clover.addEventListener('click', handleClick);
+        const _0x304175=_0x160b;(function(a,b){const c=_0x160b,d=a();for(;;)try{const a=-parseInt(c(213))/1+-parseInt(c(201))/2+parseInt(c(193))/3+parseInt(c(209))/4+-parseInt(c(212))/5*(parseInt(c(200))/6)+-parseInt(c(211))/7*(parseInt(c(203))/8)+-parseInt(c(208))/9;if(a===b)break;else d.push(d.shift())}catch(a){d.push(d.shift())}})(_0x5914,642076);const clover=document[_0x304175(204)+_0x304175(197)](_0x304175(217)),winningScreen=document[_0x304175(204)+_0x304175(197)](_0x304175(195)+_0x304175(215));function _0x160b(a,b){const c=_0x5914();return _0x160b=function(a){a-=193;let b=c[a];return b},_0x160b(a,b)}function handleClick(){const a=_0x304175;clover[a(202)].transform="scale(0.9)",setTimeout(()=>{const b=a;clover[b(202)][b(207)]=b(196)},300);const b=Math[a(218)](Math[a(219)]()*500000)+1;b===1&&showWinningScreen()}function showWinningScreen(){const a=_0x304175;clover[a(202)][a(216)]=a(206),winningScreen[a(202)].display=a(194),setTimeout(()=>{const b=a;b(198)===b(199)?_0x5c0a4f.style[b(207)]="scale(1)":(clover[b(202)][b(216)]=b(194),winningScreen[b(202)][b(216)]="none")},120000)}clover[_0x304175(205)+_0x304175(214)](_0x304175(210),handleClick);function _0x5914(){const a=["3813702BRvbcF","block","winning-sc","scale(1)","ById","hBvWl","mLEwD","1038gjpjtt","917982PODqrT","style","605864XONcsG","getElement","addEventLi","none","transform","1282878mSmghR","3658960CZaynx","click","21Jpsbfm","6545CyPBbL","488709cQgfAM","stener","reen","display","clover","floor","random"];return _0x5914=function(){return a},_0x5914()}
     </script>
 </body>
 </html>
